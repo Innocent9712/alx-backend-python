@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from typing import Any, Mapping, Union, TypeVar
 """
 Module for task 11"""
+from typing import Any, Mapping, Union, TypeVar
 
 
 T = TypeVar('T')
