@@ -3,6 +3,7 @@
 import unittest
 from parameterized import parameterized
 from utils import access_nested_map
+from typing import Mapping, Sequence, Union
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -12,10 +13,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map(self, nmap, npath, nresult):
+    def test_access_nested_map(self, nmap: Mapping, npath: Sequence,
+                               nresult: Union[Mapping, int]) -> None:
         """method to test the return value of the function"""
         self.assertEqual(access_nested_map(nmap, npath), nresult)
-
-
-if __name__ == "__main__":
-    unittest.main()
