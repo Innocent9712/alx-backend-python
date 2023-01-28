@@ -17,3 +17,13 @@ class TestAccessNestedMap(unittest.TestCase):
                                nresult: Union[Mapping, int]) -> None:
         """method to test the return value of the function"""
         self.assertEqual(access_nested_map(nmap, npath), nresult)
+
+    @parameterized.expand([
+        ({}, ("a",), KeyError),
+        ({"a": 1}, ("a", "b"), KeyError)
+    ])
+    def test_access_nested_map_exception(self, nmap: Mapping, npath: Sequence,
+                                         nresult: KeyError):
+        """method to test exception of the function"""
+        with self.assertRaises(nresult):
+            access_nested_map(nmap, npath)
