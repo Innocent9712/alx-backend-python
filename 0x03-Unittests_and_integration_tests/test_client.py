@@ -32,3 +32,21 @@ class TestGithubOrgClient(unittest.TestCase):
             client = GithubOrgClient('myorg')
             result = client._public_repos_url
             self.assertEqual(result, 'https://api.github.com/orgs/myorg/repos')
+
+    @patch('client.get_json', return_value=[
+                                            {'name': 'repo1'},
+                                            {'name': 'repo2'}
+                                        ])
+    def test_public_repos(self, smada):
+        """Implement TestGithubOrgClient.test_public_repos to
+        unit-test GithubOrgClient.public_repos."""
+        with patch.object(GithubOrgClient, '_public_repos_url',
+                          new_callable=PropertyMock,
+                          return_value="https://api.github.com/myorg/repos"
+                          ) as m:
+            client = GithubOrgClient("alx")
+            repos = client.public_repos()
+            print(repos)
+            self.assertEqual(repos, ['repo1', 'repo2'])
+            smada.assert_called_once_with('https://api.github.com/myorg/repos')
+            m.assert_called_once()
